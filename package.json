@@ -17,6 +17,6 @@
     "type": "git"
   },
   "pi": {
-    "skills": [".agents/skills"]
+    "skills": ["./skills"]
   }
 }

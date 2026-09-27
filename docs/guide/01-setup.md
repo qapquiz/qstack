@@ -12,7 +12,7 @@ pi install /path/to/qstack        # local path
 pi install git:github.com/<you>/qstack
 ```
 
-`pi list` confirms the package is installed. Project-local alternative: the repo already carries the skills under `.agents/skills/`, so running pi inside a project that vendors them needs no install at all — just approve the project-local files when prompted (or start once with `pi --approve`).
+`pi list` confirms the package is installed. Project-local alternative: the repo already carries the skills under `skills/`, so running pi inside a project that vendors them needs no install at all — just approve the project-local files when prompted (or start once with `pi --approve`).
 
 ## Pick your models
 
@@ -22,7 +22,7 @@ Run:
 /skill:setup-pstack
 ```
 
-[`/skill:setup-pstack`](../../.agents/skills/setup-pstack/SKILL.md) runs `pi --list-models` to detect the models you have access to, asks for a reasoning budget, shows you each role (code delegates, judgment, the review panels), and asks what you want. Answer the questions. It writes the `pstack models` section of `~/.pi/agent/AGENTS.md`, a small always-loaded config every pstack skill reads.
+[`/skill:setup-pstack`](../../skills/setup-pstack/SKILL.md) runs `pi --list-models` to detect the models you have access to, asks for a reasoning budget, shows you each role (code delegates, judgment, the review panels), and asks what you want. Answer the questions. It writes the `pstack models` section of `~/.pi/agent/AGENTS.md`, a small always-loaded config every pstack skill reads.
 
 You only override what you care about. A role with no line in the section keeps the skill's default: the seat runs on your own model. To restore that default, delete the role's line. A rerun of `/skill:setup-pstack` keeps any role whose model you changed.
 
@@ -30,7 +30,7 @@ Set a role to `inherit-parent` or `auto` and pstack spawns the seat on your own 
 
 ## Accept the verification offer, or don't
 
-At the end of setup, `/skill:setup-pstack` looks for a way to prove app behavior in your project, either a `verify-*` skill or an existing harness. If it finds neither, it offers once to generate one with [`/skill:create-verification-skill`](../../.agents/skills/create-verification-skill/SKILL.md).
+At the end of setup, `/skill:setup-pstack` looks for a way to prove app behavior in your project, either a `verify-*` skill or an existing harness. If it finds neither, it offers once to generate one with [`/skill:create-verification-skill`](../../skills/create-verification-skill/SKILL.md).
 
 Say yes and it writes `.agents/skills/verify-<app>/`, a project-local skill that teaches agents to drive your app the way a user does. It proves the skill works once before handing it over. Say no and setup moves on. You can run `/skill:create-verification-skill` yourself any time. [Verify and ship](./06-verify-and-ship.md#create-a-project-verification-skill) covers when it earns its place.
 
