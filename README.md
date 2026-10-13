@@ -48,7 +48,7 @@ two steps:
 1. run [`/skill:setup-pstack`](./skills/setup-pstack/SKILL.md), pick a reasoning budget, and choose which models you want. it writes the `pstack models` section of `~/.pi/agent/AGENTS.md` from what `pi --list-models` reports.
 2. use [`/skill:poteto-mode`](./skills/poteto-mode/SKILL.md) whenever you're doing anything that requires rigor.
 
-new here? the [pstack guide](./docs/guide/README.md) walks you through a first real task, from setup and prompting through verification and overnight runs.
+new here? the [pstack guide](./docs/guide/README.md) walks you through a first real task, from setup and prompting through verification and overnight runs. stuck, or unsure which skill fits? ask [`/skill:poteto-help`](./skills/poteto-help/SKILL.md).
 
 that's it. the other skills are situational; the mode skill uses them for you as needed. out of the box every role runs on your own model: pstack passes your `--provider`/`--model` to every spawn. run [`/skill:setup-pstack`](./skills/setup-pstack/SKILL.md) to split work by model strength — code delegates on your fastest coder, judgment and prose on your strongest reasoner, panels one seat per model family.
 
@@ -61,12 +61,12 @@ use [`/skill:poteto-mode`](./skills/poteto-mode/SKILL.md) at the start of a task
 this skill is the main shortcut. i use it whenever i need the agent to do rigorous engineering work. it comes with twenty-three playbooks:
 
 ```
-/poteto-mode this pr has a subtle bug where the scroll drifts every 750ms even when idle. repro
+/skill:poteto-mode this pr has a subtle bug where the scroll drifts every 750ms even when idle. repro
 first, then fix and verify.
 ```
 
 ```
-/poteto-mode i'm going to bed. land the stack even if ci flakes. i want everything merged by
+/skill:poteto-mode i'm going to bed. land the stack even if ci flakes. i want everything merged by
 morning.
 ```
 
@@ -120,11 +120,11 @@ the full rules and playbooks live in [`skills/poteto-mode/SKILL.md`](./skills/po
 [`/skill:poteto-mode`](./skills/poteto-mode/SKILL.md) runs most of these for you when a step needs them (`how`, `why`, `architect`, `arena`, `swarm`, `interrogate`, `unslop`, `no-comments`, `technical-writing`, `tdd`, and the principles). the table below is for when you want one directly:
 
 ```
-/how do we cancel runs? do we have an n+1 when we look up every run to cancel?
+/skill:how do we cancel runs? do we have an n+1 when we look up every run to cancel?
 ```
 
 ```
-/interrogate review this pr.
+/skill:interrogate review this pr.
 ```
 
 <details>
@@ -133,20 +133,24 @@ the full rules and playbooks live in [`skills/poteto-mode/SKILL.md`](./skills/po
 | skill | use it when |
 |---|---|
 | [`/skill:poteto-mode`](./skills/poteto-mode/SKILL.md) | default entry point for any non-trivial task. |
+| [`/skill:poteto-help`](./skills/poteto-help/SKILL.md) | you're new to pstack, or unsure which skill, playbook, or principle fits. finds out what you're trying to do, answers that part, and hands you a prompt to type. runs only when you type `/skill:poteto-help`. |
 | [`/skill:how`](./skills/how/SKILL.md) | you want a walkthrough of how a subsystem works. |
 | [`/skill:why`](./skills/why/SKILL.md) | you want to know why something was built this way. discovers available MCPs at run time and queries each evidence category in parallel (source control, issue tracker, long-form docs, real-time chat, infra observability, error tracking, analytics warehouse). |
 | [`/skill:recall`](./skills/recall/SKILL.md) | you're starting or resuming work and want your recent context on a topic rebuilt from your own chat history and the shared record, handed back as a tight current-state brief. |
+| [`/skill:ketchup`](./skills/ketchup/SKILL.md) | you want everything in this chat since your last message, in plain words, with an executive summary for each action item so you can make the call. |
 | [`/skill:blast-radius`](./skills/blast-radius/SKILL.md) | you have a small-looking change and want to know what else it could break, with the one fact it's safe because of proven by running code, not asserted. |
 | [`/skill:architect`](./skills/architect/SKILL.md) | you're about to write code that crosses a function boundary and want the caller's usage, types, and module shape settled first. |
 | [`/skill:arena`](./skills/arena/SKILL.md) | you want N parallel attempts at the same thing, then to grab the best parts of each. |
 | [`/skill:swarm`](./skills/swarm/SKILL.md) | you want N parallel workers across different slices or races, then one aggregated report. |
-| [`/skill:interrogate`](./skills/interrogate/SKILL.md) | you have a diff and want several different models to try to break it, including a strict code-quality lens. |
+| [`/skill:interrogate`](./skills/interrogate/SKILL.md) | you have a diff and want different models to try to break it, including a strict code-quality lens. |
 | [`/skill:automate-me`](./skills/automate-me/SKILL.md) | you want your own `-mode` skill, drafted from how you've actually worked. |
 | [`/skill:make-bot-ui`](./skills/make-bot-ui/SKILL.md) | you want a page or dashboard whose buttons wake a Grok Bot over a webhook, including the sender-key handoff and Tailscale. |
 | [`/skill:setup-pstack`](./skills/setup-pstack/SKILL.md) | you want to pick which models pstack uses per role. detects your models and writes a config rule. |
 | [`/skill:reflect`](./skills/reflect/SKILL.md) | a long task landed and you want the recipe captured as a skill edit. |
+| [`/skill:correct`](./skills/correct/SKILL.md) | you keep correcting agents for the same mistakes. mines history for mistake classes, fixes each at the highest level that works (architecture, then types, lint, and ci, then tests, with docs last), and keeps a table pairing each rule with what enforces it. |
 | [`/skill:teach`](./skills/teach/SKILL.md) | you want to actually understand a change or subsystem, not just have it summarized. runs how + why and weaves one plain explanation, built up diagram by diagram. |
 | [`/skill:tdd`](./skills/tdd/SKILL.md) | you're fixing a bug and there's a cheap local test path. write the failing test first, then the fix. |
+| [`/skill:benchmark-checklist`](./skills/benchmark-checklist/SKILL.md) | you ran a benchmark or measured a speedup or regression. vets the number (limiter, tuning, errors, repeat runs, end-to-end relevance) before you report or act on it. |
 | [`/skill:no-comments`](./skills/no-comments/SKILL.md) | strip comments before review; spawns Comment Sicko, fixes accepted findings, offers encodings for claimed constraints. |
 | [`/skill:typescript-best-practices`](./skills/typescript-best-practices/SKILL.md) | you're reading or editing typescript. grounds the type-system-discipline principle in syntax. |
 | [`/skill:figure-it-out`](./skills/figure-it-out/SKILL.md) | no bundled playbook fits. designs a rigorous, auditable playbook for the task. |
@@ -200,15 +204,20 @@ tdd:               /tdd implement
 unslop:            can we unslop and tighten the new changes?
 reflect:           /reflect that took too long. capture what we learned so the next run doesn't
                    repeat it.
+correct:           /correct
 show-me-your-work: /show-me-your-work keep a decision trail i can review when i'm back.
 automate-me:       /automate-me
+help:              /poteto-help which skill should i use to review this branch?
 ```
 
 </details>
 
 ## the `poteto-agent` and Comment Sicko subagents
 
-pi has no named subagent types, so the two agents ship as briefing files you pass to a spawn:
+[`/skill:poteto-mode`](./skills/poteto-mode/SKILL.md) runs in the chat that receives it. that chat owns the playbook, the todo list, and every subagent spawn.
+
+pi has no named subagent types, so the delegates ship as briefing files you pass to a spawn: [`poteto-agent`](./skills/poteto-mode/agents/poteto-agent.md) reads `poteto-mode` in full, including its inline principles index, before doing any work. don't spawn it to run the playbook itself.
+
 
 ```bash
 pi -p --no-session --append-system-prompt agents/poteto-agent.md "..."
@@ -219,10 +228,10 @@ pi -p --no-session --tools read --append-system-prompt agents/comment-sicko.md "
 
 ## principles
 
-twenty-three short skills, one principle each. `poteto-mode` indexes them inline and reads that index at task start. the standalone files are there so other skills can reference a principle by name, and so the index can point at the full rule for each.
+twenty-four short skills, one principle each. `poteto-mode` indexes them inline and reads that index at task start. the standalone files are there so other skills can reference a principle by name, and so the index can point at the full rule for each.
 
 <details>
-<summary>all twenty-three principles</summary>
+<summary>all twenty-four principles</summary>
 
 | principle | group | rule |
 |---|---|---|
@@ -246,6 +255,7 @@ twenty-three short skills, one principle each. `poteto-mode` indexes them inline
 | [fix-root-causes](./skills/principle-fix-root-causes/SKILL.md) | verification | Trace each symptom to its root cause and fix it there; reproduce first, ask why until you reach it, resist nil-check guards that silence crashes. |
 | [sequence-verifiable-units](./skills/principle-sequence-verifiable-units/SKILL.md) | verification | Apply to multi-step work (sweeps, migrations, runs of similar edits) and to how you stack commits and PRs. Break work into small units that each end in a verifiable state, check each before the next, and order delivery so the sequence proves itself to a reviewer. |
 | [test-behavior-not-implementation](./skills/principle-test-behavior-not-implementation/SKILL.md) | verification | Apply when you write, change, or keep a test. Call the code the way its users do and assert the result they observe against a literal expected value. If the test would still pass when every imported function returns undefined, rewrite the assertion or delete the test. |
+| [explain-the-number](./skills/principle-explain-the-number/SKILL.md) | verification | Apply before you trust, report, or act on a number you measured: a speedup, a regression, a throughput, a latency, or an eval result. Find what limits it, and rule out that it measured something other than the work you think. |
 | [guard-the-context-window](./skills/principle-guard-the-context-window/SKILL.md) | delegation | Route bulk to subagents; keep summaries in the main thread, not raw payloads. |
 | [never-block-on-the-human](./skills/principle-never-block-on-the-human/SKILL.md) | delegation | Proceed, present the result, let the human course-correct after the fact; reserve confirmation for irreversible actions. |
 | [encode-lessons-in-structure](./skills/principle-encode-lessons-in-structure/SKILL.md) | meta | Encode the rule as a lint, metadata flag, runtime check, or script instead of more text. |

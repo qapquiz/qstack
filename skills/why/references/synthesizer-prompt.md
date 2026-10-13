@@ -87,7 +87,12 @@ Skip this section if there's a single clear answer.
 
 ### What We Don't Know
 
-**Explicit gaps.** Things the user asked that the evidence didn't answer. Sources searched that came up empty. Sources that weren't searchable at all, such as a missing real-time team chat integration.
+Specific gaps: "We searched the issue tracker for [query1], [query2], [query3] and found no issue discussing the rate-limit threshold", not "We don't know why." Include:
+
+- Questions that went unanswered
+- Searches that returned nothing
+- Sources that were unavailable, and why (such as a missing real-time team chat integration)
+- People who would likely know but whom you can't ask
 
 Be specific. "We searched the issue tracker for [query1], [query2], [query3] and found no issue discussing the rate-limit threshold" is useful. "We don't know why" is not. Include:
 

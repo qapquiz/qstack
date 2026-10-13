@@ -20,14 +20,14 @@ The default role-to-model mapping is the section shape shown in step 5 below. If
 
 ### 3. Budget, map, and confirm
 
-**(a) Ask for a budget.** Ask with short lettered options rather than free text. Offer these four options with these exact labels, and name the current budget when the section records one.
+**(a) Ask for a budget.** Ask with short lettered options rather than free text. Offer these four options with these exact labels, and name the current budget when the section records one. With no section, say that `large` matches the skill defaults.
 
-- `unlimited — keep max`
+- `unlimited — max reasoning`
 - `large — xhigh reasoning`
 - `medium — high reasoning`
 - `small — medium reasoning`
 
-**(b) Apply it.** Build the working table from the skill defaults, and on a re-run keep any role you changed by family, list, or alias (`inherit-parent`, `auto`). The budget sets the `:<thinking>` suffix (pi model patterns accept one, e.g. `google/gemini-3-pro:xhigh`) of every real entry, panel entries included, to `xhigh`, `high`, or `medium`; `unlimited` leaves entries as they are, and an entry with no suffix counts as `max`. If a model rejects the resulting thinking level, use the highest accepted level at or below the target, else mark the role as needing a choice. `inherit-parent` and `auto` do not change. So `small` turns `google/gemini-3-pro` into `google/gemini-3-pro:medium`.
+**(b) Apply it.** Build the working table from the skill defaults, and on a re-run keep any role you changed by family, list, or alias (`inherit-parent`, `auto`). The budget sets the `:<thinking>` suffix (pi model patterns accept one, e.g. `google/gemini-3-pro:xhigh`) of every real entry, panel entries included: `unlimited` sets `max`, `large` `xhigh`, `medium` `high`, `small` `medium`. An entry with no suffix counts as `max`. If a model rejects the resulting thinking level, use the highest accepted level at or below the target, else mark the role as needing a choice. `inherit-parent` and `auto` do not change. So `small` turns `google/gemini-3-pro` into `google/gemini-3-pro:medium`.
 
 With no existing section, propose from the detected set and confirm: code roles (`feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`, `swarm workers`, `how explorer`, `why investigators`) get your fastest strong coding model; judgment and prose roles (`judgment and prose`, `hardest tasks`, `how explainer`, `why synthesizer`, `reflect judgment, divergent, synthesizer`) get your strongest reasoning model; panel roles (`arena runners`, `arena cross-judge pool`, `architect runners`, `interrogate reviewers`) get one entry per distinct model family, up to three. One model detected means everything is `inherit-parent`.
 

@@ -10,16 +10,16 @@ Explore the codebase to answer "how does X work?" questions. Produce architectur
 
 Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model (pass your own `--provider`/`--model`) when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so.
 
-## Step 1. Assess Complexity
+## 1. Assess complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
 
-- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. One explainer explores and explains in a single pass. Go to Step 2b.
-- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): spawn parallel explorers first, then hand off to the explainer. Go to Step 2a.
+- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. Spawn one explainer that explores and explains in one pass, built from `references/explainer-prompt.md` without the explorer-findings section. Go to step 4.
+- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): go to step 2.
 
 When in doubt, take the simple path.
 
-## Step 2a. Explore (complex questions only)
+## 2. Explore (complex only)
 
 Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers as backgrounded pi processes (one bash call), then wait and read the output files:
 
@@ -34,7 +34,7 @@ pi -p --no-session --tools read [--provider <p> --model <m>[:<thinking>]] \
 
 Then go to Step 3.
 
-## Step 2b. Direct Explain (simple questions)
+## 4. Present
 
 Spawn one pi process that explores and explains in one pass:
 
