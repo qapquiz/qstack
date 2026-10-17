@@ -8,7 +8,9 @@ disable-model-invocation: true
 
 Investigate the motivation and intent behind code. The companion `how` skill answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so.
+Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so. Pick each subagent's thinking level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
+
+Spawn every seat with all tools on. A `--tools read` spawn strips MCP tools, which disables the MCP-backed investigators and the synthesizer's citation spot-checks. Investigators still shouldn't write anything.
 
 ## Operating Posture
 

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model (pass your own `--provider`/`--model`) when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so.
+Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model (pass your own `--provider`/`--model`) when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so. Pick each subagent's thinking level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
 
 ## 1. Assess complexity
 

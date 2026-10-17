@@ -24,7 +24,7 @@ For each candidate, read the first JSONL lines and check the content contains th
 
 One bash call, three backgrounded pi processes (Subagents section of poteto-mode), with the role models below. Reviewers need tool access for context lookups (tickets, chat threads, observability traces referenced in the transcript), so run them with default tools.
 
-Each reviewer and the synthesizer name a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so.
+Each reviewer and the synthesizer name a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so. Pick each subagent's thinking level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
 
 | Lens | Role line | Fallback model | Prompt template |
 |---|---|---|---|

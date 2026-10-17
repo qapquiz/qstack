@@ -5,6 +5,8 @@ Swap in the real paths, skills, and done checks. Informal wording works.
 ## Understand
 
 - `/skill:poteto-mode read <thread>. restate the underlying issue in your own words, in plain english.`
+- `/skill:in-your-own-words <long or messy ask>`
+- `/skill:sharpen <your task>`
 - `/skill:poteto-mode investigate why <symptom>. give me what we know, what data you used, and your best hypotheses. don't change any code yet.`
 - `use /skill:how to understand <subsystem>. then use /skill:why to find out why it broke recently.`
 - `/skill:recall my work on <topic> from last week, then read <issue>.`
@@ -39,7 +41,7 @@ Swap in the real paths, skills, and done checks. Informal wording works.
 
 ## Away and back
 
-- `/skill:poteto-mode im going to bed. <goal> in a fresh worktree off <base>. done means <checks>. keep a decision log. don't ask me before committing. /loop until done. if you're truly stuck after a few hours, stop and write up why.`
+- `/skill:poteto-mode im going to bed. <goal> in a fresh worktree off <base>. done means <checks>. keep a decision log. don't ask me before committing. loop until done. if you're truly stuck after a few hours, stop and write up why.`
 - `/skill:show-me-your-work catch me up on what you did last night.` Read its Attention section first.
 - `/skill:poteto-mode full autopilot on this queue. each item is independent.`
 - `/skill:poteto-mode autopilot these changes but stack them, don't ship. i'll land the stack.`
