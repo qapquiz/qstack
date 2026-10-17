@@ -104,10 +104,23 @@ git worktree list --porcelain | awk '/^worktree /{print $2}' | while read -r wt;
 	# followed by "/" or a quote so glint-482 does not match glint-482-r37.
 	last="-"; last_ts=0
 	if [ -d "$transcripts" ]; then
-		f=$(rg -l -e "${wt}/" -e "${wt}\"" "$transcripts" 2>/dev/null \
-			| xargs stat -f '%m %N' 2>/dev/null | sort -rn | head -1)
-		if [ -n "$f" ]; then last_ts=$(echo "$f" | awk '{print $1}')
-			last=$(date -r "$last_ts" '+%Y-%m-%d' 2>/dev/null); fi
+		while IFS= read -r f; do
+			[ -f "$f" ] || continue
+			if [ "$(uname -s)" = "Darwin" ]; then
+				mtime=$(stat -f '%m' "$f" 2>/dev/null)
+			else
+				mtime=$(stat -c '%Y' "$f" 2>/dev/null)
+			fi
+			[ -z "$mtime" ] && continue
+			if [ "$mtime" -gt "$last_ts" ]; then last_ts=$mtime; fi
+		done < <(rg -l -e "${wt}/" -e "${wt}\"" "$transcripts" 2>/dev/null)
+		if [ "$last_ts" -gt 0 ]; then
+			if [ "$(uname -s)" = "Darwin" ]; then
+				last=$(date -r "$last_ts" '+%Y-%m-%d' 2>/dev/null)
+			else
+				last=$(date -d "@$last_ts" '+%Y-%m-%d' 2>/dev/null)
+			fi
+		fi
 	fi
 	recent=$([ "$last_ts" -gt 0 ] 2>/dev/null && [ $(( (now - last_ts) / 86400 )) -le 4 ] && echo yes || echo no)
 
