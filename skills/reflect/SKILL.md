@@ -48,6 +48,8 @@ Present the synthesizer's full Accepted / Rejected / Backlog output and wait for
 
 File each Backlog item to your team's devex or backlog tracker without waiting. Only the Accepted list waits for approval.
 
+Never edit a skill inside an installed package copy (`node_modules/`, `~/.pi/agent/npm/`, or any package cache): a package update moves to a new hash and drops the edit. Before approval, show its destination, `.agents/skills/<skill>/` in the project or `~/.pi/agent/skills/<skill>/` for a personal skill. After approval, copy the skill folder there and edit the copy. Never open a PR or push.
+
 Follow each approved row's Routing exactly:
 
 - Trivial existing-skill edit (a one-line bullet, a tightened sentence, a stale fact corrected): parent does directly.
