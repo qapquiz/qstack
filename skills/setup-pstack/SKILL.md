@@ -16,7 +16,9 @@ Run `pi --list-models` (it accepts a fuzzy search term) to enumerate the `provid
 
 ### 2. Load current state
 
-The default role-to-model mapping is the section shape shown in step 5 below. If `~/.pi/agent/AGENTS.md` already carries a `pstack models` section, read it and treat its `# budget` line and its role values as the current choices. Otherwise start from those defaults. A line whose role is not in step 5, such as `how critics`, is from a retired role. Drop it.
+The default role-to-model mapping is the section shape shown in step 5 below. If `~/.pi/agent/AGENTS.md` already carries a `pstack models` section, read it and treat its `# budget` line and its role values as the current choices. Otherwise start from those defaults. A line whose role is not in step 5, such as `how explorer` or `why investigators`, is from a retired role. Drop it.
+
+A section without the `# defaults: 2` line comes from an older setup. That setup wrote a line for every role, so some of its values are old defaults, not choices. An old default is a slug copied from upstream's old defaults: a value matching `grok-*`, or a `claude-opus-*` value in `hardest tasks`. Before step 3, replace them with the role's step 5 default (`inherit-parent`): an old slug in `feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`, `reflect tooling`, or `swarm workers`; a `claude-opus-*` value in `hardest tasks`; and in a panel role, a list of exactly one `claude-opus-*` entry and one old slug, in either order. In any other list, each old slug becomes `inherit-parent`. Every other value is the user's choice and stays, including every `inherit-parent` or `auto` value. Tell the user which values you replaced.
 
 ### 3. Budget, map, and confirm
 
@@ -29,9 +31,9 @@ The default role-to-model mapping is the section shape shown in step 5 below. If
 
 **(b) Apply it.** Build the working table from the skill defaults, and on a re-run keep any role you changed by family, list, or alias (`inherit-parent`, `auto`). The budget sets the `:<thinking>` suffix (pi model patterns accept one, e.g. `google/gemini-3-pro:xhigh`) of every real entry, panel entries included: `unlimited` sets `max`, `large` `xhigh`, `medium` `high`, `small` `medium`. An entry with no suffix counts as `max`. If a model rejects the resulting thinking level, use the highest accepted level at or below the target, else mark the role as needing a choice. `inherit-parent` and `auto` do not change. So `small` turns `google/gemini-3-pro` into `google/gemini-3-pro:medium`.
 
-With no existing section, propose from the detected set and confirm: code roles (`feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`, `swarm workers`, `how explorer`, `why investigators`) get your fastest strong coding model; judgment and prose roles (`judgment and prose`, `hardest tasks`, `how explainer`, `why synthesizer`, `reflect judgment, divergent, synthesizer`) get your strongest reasoning model; panel roles (`arena runners`, `arena cross-judge pool`, `architect runners`, `interrogate reviewers`) get one entry per distinct model family, up to three. One model detected means everything is `inherit-parent`.
+With no existing section, propose from the detected set and confirm: code roles (`feature, refactoring`, `bug-fix`, `perf-issue`, `hillclimb`, `swarm workers`) get your fastest strong coding model; judgment and prose roles (`judgment and prose`, `hardest tasks`, `reflect judgment, divergent, synthesizer`) get your strongest reasoning model; panel roles (`arena runners`, `arena cross-judge pool`, `architect runners`, `interrogate reviewers`) get one entry per distinct model family, up to three. One model detected means everything is `inherit-parent`.
 
-**(c) Show the roles and confirm.** Show every role with its model, marking any real entry not in the detected set as needing a choice. Also list each line step 2 dropped. Ask whether to accept as-is or change specific roles, offering the detected models plus `inherit-parent` and `auto` (both mean: this role runs on your own model) as lettered options. For panel roles the value is a list, and one spawn runs per entry, alias entries included, so the list length sets the count. `arena cross-judge pool` is also a list, but Arena runs one judge. It tries only values from a family other than yours, in list order, so order it by preference. An `inherit-parent` or `auto` value never judges. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
+**(c) Show the roles and confirm.** Show every role with its model, marking any real entry not in the detected set as needing a choice. Also list each line step 2 dropped. Ask whether to accept as-is or change specific roles, offering the detected models plus `inherit-parent` and `auto` (both mean: this role runs on your own model) as lettered options. For panel roles the value is a list, and one spawn runs per entry, alias entries included, so the list length sets the count. `arena cross-judge pool` is also a list, but Arena runs one judge. It tries only values from a vendor other than yours, in list order, so order it by preference. A vendor is a family as the **arena** skill's Phase A defines them, except that two families of the same model lineage are one vendor. An `inherit-parent` or `auto` value never judges. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
 ### 4. Validate
 
@@ -47,6 +49,7 @@ In `~/.pi/agent/AGENTS.md`, replace the existing `## pstack models` section in p
 # pstack per-role model choices (overrides skill defaults). One line per role. Delete a line to fall back to the skill default.
 # `inherit-parent` or `auto` as a value: the role runs on your own model. Alias entries in a panel list still count toward its fan-out.
 # An entry may carry a `:<thinking>` suffix (off..max). `# budget` records the chosen label.
+# defaults: 2
 # budget: unlimited (max)
 feature, refactoring: inherit-parent
 bug-fix: inherit-parent
@@ -54,10 +57,6 @@ perf-issue: inherit-parent
 hillclimb: inherit-parent
 judgment and prose: inherit-parent
 hardest tasks: inherit-parent
-how explorer: inherit-parent
-how explainer: inherit-parent
-why investigators: inherit-parent
-why synthesizer: inherit-parent
 reflect tooling: inherit-parent
 reflect judgment, divergent, synthesizer: inherit-parent
 arena runners: inherit-parent, inherit-parent, inherit-parent

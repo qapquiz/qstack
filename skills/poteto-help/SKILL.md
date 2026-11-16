@@ -43,7 +43,7 @@ Installing changes nothing until the user invokes a skill. Only `/skill:setup-ps
 
 If cost is the worry, say where the tokens go and how to spend fewer. pstack spends extra tokens on subagents and review panels. Rerun `/skill:setup-pstack` and pick a smaller budget or cheaper models. A role set to `auto` or `inherit-parent`, or with no line, runs on the chat's own model, which saves tokens when the chat runs on a cheaper model. A shorter panel list runs fewer subagents, one for each entry. Save `/skill:poteto-mode` for work that needs rigor.
 
-pstack upstream is built for Cursor; qstack retargets it at pi. Its skills use the Agent Skills format, so other tools can read them. The workflow skills, including `/skill:poteto-mode`, `/skill:how`, `/skill:why`, and `/skill:teach`, spawn subagents through `pi -p` with per-role models, so any model pi can run works.
+pstack upstream is built for Cursor; qstack retargets it at pi. Its skills use the Agent Skills format, so other tools can read them. The workflow skills, including `/skill:poteto-mode`, `/skill:how`, and `/skill:teach`, spawn subagents through `pi -p`, some with per-role models, so any model pi can run works.
 
 ## Start a task with `/skill:poteto-mode`
 
