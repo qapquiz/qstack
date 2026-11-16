@@ -6,63 +6,25 @@ disable-model-invocation: true
 
 # How
 
-Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
+Explore the codebase to answer "how does X work?" questions.
 
-Each spawn below names a role line in the `pstack models` section of `AGENTS.md` (written by `/skill:setup-pstack`). Resolve the spawn's model from that line; run the seat on your own model (pass your own `--provider`/`--model`) when the section or the line is missing, and for the aliases `auto` and `inherit-parent`. If a configured model fails to resolve (`pi --list-models <entry>` finds nothing), run the seat on your own model and say so. Pick each subagent's thinking level and fast or standard speed for the job, per the Subagents section of the **poteto-mode** skill.
-
-## 1. Assess complexity
+## 1. Explain
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
-
-- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. Spawn one explainer that explores and explains in one pass, built from `references/explainer-prompt.md` without the explorer-findings section. Go to step 4.
-- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): go to step 2.
-
-When in doubt, take the simple path.
-
-## 2. Explore (complex only)
-
-Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers as backgrounded pi processes (one bash call), then wait and read the output files:
-
-```bash
-pi -p --no-session --tools read [--provider <p> --model <m>[:<thinking>]] \
-  "<explorer prompt>" > /tmp/how-explorer-<n>.out 2>&1 &
-```
-
-- Prompt: `references/explorer-prompt.md` with its angle filled in
-- `--tools read`: explorers are read-only
-- model: the `how explorer` line, or your own model when unset
-
-Then go to Step 3.
-
-## 4. Present
 
 Spawn one pi process that explores and explains in one pass:
 
 ```bash
 pi -p --no-session --tools read [--provider <p> --model <m>[:<thinking>]] \
-  "<explainer prompt>" > /tmp/how-explainer.out 2>&1
+  "<brief>" > /tmp/how-explainer.out 2>&1
 ```
 
-- Prompt: `references/explainer-prompt.md` without the explorer-findings section
-- model: the `how explainer` line, or your own model when unset
+Give it the user's question and this brief:
 
-Go to Step 4.
+> You are writing an architectural explanation for a senior engineer. Explore the codebase and write an explanation that a senior engineer unfamiliar with this area could read and walk away with a solid mental model. They should understand the architecture well enough to start working in it confidently. You have read-only access to the codebase.
 
-## Step 3. Synthesize (complex questions only)
+`--tools read` keeps the spawn read-only. Run the seat on your own model (pass your own `--provider`/`--model`); `how` has no role line in the `pstack models` section.
 
-Once all explorers have returned, spawn one pi process to synthesize their findings into one explanation:
+## 2. Present
 
-```bash
-pi -p --no-session --tools read [--provider <p> --model <m>[:<thinking>]] \
-  "<explainer prompt with findings>" > /tmp/how-explainer.out 2>&1
-```
-
-Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
-
-## Step 4. Present
-
-Present the explainer's output to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
-
-## Output Format
-
-The explanation uses the sections defined in `references/explainer-prompt.md`, dropping any that do not apply: Overview, Key Concepts, How It Works, Where Things Live, Gotchas.
+Read the spawn's output and present it. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.

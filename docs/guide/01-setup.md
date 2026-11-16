@@ -26,7 +26,7 @@ Run:
 
 The budget you pick in `/skill:setup-pstack` sets the `:<thinking>` suffix of every configured model. `unlimited` lifts each entry to `max`; `medium` and `small` lower it to `high` or `medium`. `large` matches the skill defaults.
 
-You only override what you care about. A role with no line in the section keeps the skill's default: the seat runs on your own model. To restore that default, delete the role's line. A rerun of `/skill:setup-pstack` keeps any role whose model you changed. When the skill defaults change, a section written before the change still pins the old choices, so delete those role lines, or delete the section, then run `/skill:setup-pstack` again.
+You only override what you care about. A role with no line in the section keeps the skill's default: the seat runs on your own model. To restore that default, delete the role's line. A rerun of `/skill:setup-pstack` keeps any role whose model you changed. When the skill defaults change, a section written before the change still pins the old choices until you run `/skill:setup-pstack` again. That run replaces the old defaults it recognizes, tells you which, and keeps your other choices. To drop a pin it does not recognize, delete that role's line or the section first.
 
 Set a role to `inherit-parent` or `auto` and pstack spawns the seat on your own `--provider`/`--model`, so it runs on the same model as this session. Both values mean the same thing, and neither is a model entry. For a panel role the value is a list, and one subagent runs per entry, so the list length sets the panel size. Setup also configures `swarm workers`, the default model for every `/skill:swarm` worker unless a race names a model for each arm.
 
